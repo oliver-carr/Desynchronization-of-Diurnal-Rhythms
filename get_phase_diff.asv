@@ -1,0 +1,9 @@
+function [avHRAcc,avHRVAcc,avAccVAcc]=get_phase_diff(HRParams,AccParams,VAccParams)
+
+% Set phase between 0 and 1 (time of date in matlab format)
+HRParams.phase=HRParams.phase./(2*pi);
+
+
+avHRAcc=mean([HRParams.phase]-[AccParams.phase]);
+avHRVAcc=mean([HRParams.phase]-[VAccParams.phase]);
+avAccVAcc=mean([AccParams.phase]-[VAccParams.phase]);
