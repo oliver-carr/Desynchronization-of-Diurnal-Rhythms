@@ -12,10 +12,11 @@ for i=1:num_days
     t_now=time_now(ind1:ind2)-(i-1);
     s_now=signal(ind1:ind2);
     t_plot=time(ind1:ind2);
+    tp=-start_time/24+i:0.001:start_time/24+i;
     
     [M,Amp,phi,~] = cosinor(t_now,s_now,2*pi,0.05);
-    sin(i).signal = M + Amp*cos(2*pi.*(t_now)+phi);
-    t(i).time=t_plot;
+    sin(i).signal = M + Amp*cos(2*pi.*(tp)+phi);
+    t(i).time=tp;
     
     f = M + Amp*cos(2*pi.*(t_now)+phi);
     [~,locs] = findpeaks(-f);
@@ -23,11 +24,11 @@ for i=1:num_days
     if isempty(locs)
         phi=0;
     else
-        phi=t_now(locs)-0.5;
+        phi=t_now(locs)-start_time/24;
     end
     
     if acc==1
-        phi=phi-0.5;
+        phi=phi-start_time/24;
         if phi<0
             phi=phi+1;
         end

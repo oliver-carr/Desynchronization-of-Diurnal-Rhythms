@@ -47,11 +47,11 @@ axis tight
 % Plot sinusoids
 figure
 subplot(3,1,1)
-plot_sinusoids(tAcc,sinAcc,Acc_time_now,Acc_signal_now)
+plot_sinusoids(tAcc,sinAcc,Acc_time_now-floor(Acc_time_now(1)),Acc_signal_now)
 subplot(3,1,2)
-plot_sinusoids(tVAcc,sinVAcc,VAcc_time_now,VAcc_signal_now)
+plot_sinusoids(tVAcc,sinVAcc,VAcc_time_now-floor(VAcc_time_now(1)),VAcc_signal_now)
 subplot(3,1,3)
-plot_sinusoids(tHR,sinHR,HR_time_now,HR_signal_now)
+plot_sinusoids(tHR,sinHR,HR_time_now-floor(HR_time_now(1)),HR_signal_now)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Calculate the parameters from: 
@@ -88,6 +88,7 @@ avHR=HRMesor + HRAmp*cos(2*pi.*(time)-(2*pi*HRPhi/24));
 % Create Figure 2 from: 
 % "Desynchronization of diurnal rhythms in bipolar disorder and borderline
 % personality disorder."
+% (For one participant, can find average for cohort)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 figure
@@ -111,5 +112,42 @@ axis square
 datetick
 xlabel('Time')
 title('Heart Rate')
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Circadian/Diurnal variability measures from: 
+% "Variability in phase and amplitude of diurnal rhythms is related to variation of mood
+% in bipolar and borderline personality disorder."
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+t_all_plot=start_time/24:0.001:num_days+start_time/24;
+
+% Get the sinusoids fit to the entire signal
+[M1,A1,p1,~] = cosinor(Acc_time_now,Acc_signal_now,2*pi,0.05);
+Acc_sin = M1 + A1*cos(2*pi.*(t_all_plot)+p1);
+
+[M2,A2,p2,~] = cosinor(VAcc_time_now,VAcc_signal_now,2*pi,0.05);
+VAcc_sin = M2 + A2*cos(2*pi.*(t_all_plot)+p2);
+
+[M3,A3,p3,~] = cosinor(HR_time_now,HR_signal_now,2*pi,0.05);
+HR_sin = M3 + A3*cos(2*pi.*(t_all_plot)+p3);
+
+figure
+subplot(3,1,1)
+plot_sinusoids(tAcc,sinAcc,t_all_plot,Acc_sin);
+subplot(3,1,2)
+plot_sinusoids(tVAcc,sinVAcc,t_all_plot,VAcc_sin);
+subplot(3,1,3)
+plot_sinusoids(tHR,sinHR,t_all_plot,HR_sin);
+
+% Get the variability features
+AccFeat=get_diurnal_variability(sinAcc,Acc_sin);
+VAccFeat=get_diurnal_variability(sinVAcc,VAcc_sin);
+HRFeat=get_diurnal_variability(sinHR,HR_sin);
+
+
+
+
+
+
 
 
