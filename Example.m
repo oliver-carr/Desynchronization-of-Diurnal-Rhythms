@@ -1,3 +1,5 @@
+addpath('/Users/oliver/Documents/GitHub/Desynchronization-of-Diurnal-Rhythms/functions')
+
 % Load the example file
 [Acc_Time,Acc,VAcc_Time,VAcc,HR_Time,HR]=load_example_data();
 
