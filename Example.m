@@ -37,7 +37,9 @@
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-addpath('/Users/oliver/Documents/GitHub/Desynchronization-of-Diurnal-Rhythms/functions')
+slashchar = char('/'*isunix + '\'*(~isunix));
+mainpath = (strrep(which(mfilename),[mfilename '.m'],''));
+addpath(genpath(mainpath)) % add subfunctions folder to path
 
 % Load the example file
 [Acc_Time,Acc,VAcc_Time,VAcc,HR_Time,HR]=load_example_data();
