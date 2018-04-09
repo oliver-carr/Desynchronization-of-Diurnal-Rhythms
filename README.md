@@ -17,7 +17,7 @@ To run all of the code, the script `Example.m` and two data recordings (`Acceler
 
 This recreates: Figure 1, the measures in Table 1, and Figure 2 from [2]; and also all diurnal variability measures from [3].
 
-<p align="center"><img src="http://oliver-carr.github.io/Desynchronization-of-Diurnal-Rhythms/images/Figure1.PNG" width="200"></p>
+<p align="center"><img src="https://github.com/oliver-carr/Desynchronization-of-Diurnal-Rhythms/blob/master/images/Figure1.PNG?raw=true" width="200"></p>
 
 ## Acknowledgment
 Oliver Carr is affilated at the Institute of Biomedical Engineering, Department of Engineering Science, University of Oxford.
